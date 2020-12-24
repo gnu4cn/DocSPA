@@ -18,8 +18,9 @@ export class ListCollapseDirective implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit() {
-    this.mutationObserver = new MutationObserver(() => {
-      this.getTocLinks();
+    this.mutationObserver = new MutationObserver(async() => {
+      // This should be a async method, or the `this.tocLinks` not be ready for `this.markLinks` method.
+      await this.getTocLinks();
       this.markLinks();
     });
     this.mutationObserver.observe(this.elm.nativeElement, { childList : true, subtree: true });
